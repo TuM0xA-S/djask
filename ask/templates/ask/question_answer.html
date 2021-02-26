@@ -1,0 +1,15 @@
+<div class="row">
+	<div class="col card px-2 my-2">
+		<div>
+			<small class="text-muted">
+				by {{answer.author}} | at {{ answer.published }} 
+				{% if answer.was_updated %}
+					(upd. {{ answer.updated }})
+				{% endif %}
+			</small>
+		</div>
+		<div class="card-body pt-1">
+			{{ answer.body }}
+		</div>
+	</div>
+</div>

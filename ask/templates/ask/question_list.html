@@ -1,0 +1,12 @@
+{% extends "ask/base.html" %}
+
+{% block title %} Djask {% endblock %}
+
+{% block description %}Question list{% endblock %}
+
+{% block content %}
+	{% for question in question_list %}
+		{% include "ask/question_header.html" %}
+	{% endfor %}
+	{% include "ask/pagination.html" with page=question_list%}
+{% endblock %}

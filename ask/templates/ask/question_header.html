@@ -1,0 +1,15 @@
+<div class="row">
+	<div class="col card px-2 my-2">
+		<div>
+			<small class="text-muted">
+				by {{question.author}} | at {{ question.published }} 
+				{% if question.was_updated %}
+					(upd. {{ question.updated }})
+				{% endif %}
+			</small>
+		</div>
+		<h2 class="card-title">
+			<a href="{{ question.get_absolute_url }}">{{ question.title }}</a>
+		</h2>
+	</div>
+</div>
