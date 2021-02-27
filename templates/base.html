@@ -8,15 +8,27 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-	<title>{% block title %}You forgot title!{% endblock %}</title>
+	<title>{% block title %}{% endblock %}</title>
   </head>
   <body>
 	<div class="container">
-		<nav class="row nav">
-			<a class="nav-link" href="{% url 'ask:question_list' %}">Question list</a>
-			<a class="nav-link" href="#">Ask question</a>
-			<a class="nav-link" href="#">User settings</a>
-		</nav>
+		<div class="row">
+			<nav class="col nav">
+				<a class="nav-link" href="{% url 'ask:question_list' %}">Question list</a>
+				<a class="nav-link" href="{% url 'edit' %}">Edit Account</a>
+				<a class="nav-link" href="{% url 'password_change' %}">Change password</a>
+			</nav>
+			<div class="col mt-2">
+				<div class="float-right">
+					{% if request.user.is_authenticated %}
+					logged as {{user}}, <a href="{% url 'logout' %}"> log out </a>
+					{% else %}
+					<a href="{% url 'login' %}"> log-in </a>
+					(<a href="{% url 'register' %}">register</a>)
+					{% endif %}
+				</div>
+			</div>
+		</div>
 		<div class="row justify-content-center">
 			<div class="col-auto">
 				<h3>{% block description %}{% endblock %}</h3>
