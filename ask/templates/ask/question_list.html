@@ -2,7 +2,7 @@
 
 {% block title %} Djask {% endblock %}
 
-{% block description %}Question list{% endblock %}
+{% block description %}Question list <a class="bth btn-primary" href="{% url 'ask:create_question' %}"> Create </a>{% endblock %}
 
 {% block content %}
 	{% for question in question_list %}

@@ -5,4 +5,5 @@ app_name = 'ask'
 urlpatterns = [
     path('', views.question_list, name='question_list'),
     path('<int:pk>/', views.question_detail, name='question_detail'),
+    path('create/', views.create_question, name='create_question'),
 ]

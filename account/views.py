@@ -1,13 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth.forms import UserCreationForm
-from django import forms
-from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-
-
-class UserRegistrationForm(UserCreationForm):
-    Meta = UserCreationForm.Meta
-    Meta.fields = ('username', 'email')
+from .forms import UserRegistrationForm, UserEditForm
 
 
 def register(request):
@@ -22,12 +15,6 @@ def register(request):
 
         return render(request, 'registration/register.html',
                       {'user_form': user_form})
-
-
-class UserEditForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('username', 'email')
 
 
 @login_required
