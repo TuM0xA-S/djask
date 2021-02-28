@@ -8,8 +8,12 @@
 				{% endif %}
 			</small>
 		</div>
-		<h2 class="card-title">
+		<h3 class="card-title">
 			<a href="{{ question.get_absolute_url }}">{{ question.title }}</a>
-		</h2>
+			{% if request.user.is_authenticated and question.author == request.user %}
+			<a class="btn btn-primary" href="{% url 'ask:edit_question' question.pk %}"> Edit </a>
+			<a class="btn btn-danger" href="{% url 'ask:confirm_delete_question' question.pk %}"> Delete </a>
+			{% endif %}
+		</h3>
 	</div>
 </div>

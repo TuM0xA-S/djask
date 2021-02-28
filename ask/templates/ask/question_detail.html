@@ -15,7 +15,7 @@
 	</div>
 	<div class="row justify-content-center">
 		<div class="col-auto">
-			<h3>Answers</h3>
+			<h3>Answers <a class="btn btn-success" href="{% url 'ask:create_answer' question.pk %}"> Create </a></h3>
 		</div>
 	</div>
 	{% for answer in question.answer_set.all %}

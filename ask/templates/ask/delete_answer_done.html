@@ -1,0 +1,8 @@
+{% extends "info_base.html" %}
+
+{% block title %} Answer deleted {% endblock %}
+
+{% block message %}
+<p> Successful deletion </p>
+<p> <a href="{% url 'ask:question_detail' pk %}">Back to question</a>.</p>
+{% endblock %}

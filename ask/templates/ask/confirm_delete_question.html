@@ -1,0 +1,10 @@
+{% extends "info_base.html" %}
+
+{% block title %} Delete question? {% endblock %}
+
+{% block message %}
+<p>You are deleting "{{question}}". </p>
+<div>
+	<a class="btn btn-danger" href="{% url 'ask:delete_question' question.pk %}">Yes</a>
+</div>
+{% endblock %}

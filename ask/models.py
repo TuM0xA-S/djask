@@ -30,3 +30,7 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.body[:200]
+
+    def get_absolute_url(self):
+        return reverse('ask:question_detail', args=[self.question.id
+                                                    ]) + f'#ans{self.pk}'

@@ -1,17 +1,5 @@
-{% extends "base.html" %}
+{% extends "form_base.html" %}
 
-{% load crispy_forms_tags %}
-
-{% block title %} Registration {% endblock %} 
-
-{% block description %} Registration {% endblock %}
-
-{% block content %}
-	<p>Register using following form.</p>
-	<form action="." method="post">
-		{{ user_form|crispy }}
-		{% csrf_token %}
-		<button type="submit" class="btn btn-primary">Register</button>
-	</form>
-{% endblock %}
-
+{% block prompt %} Registration {% endblock %}
+{% block info %} Register using following form.{% endblock %}
+{% block button_text %} Register{% endblock %}

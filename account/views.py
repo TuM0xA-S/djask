@@ -14,7 +14,7 @@ def register(request):
         user_form = UserRegistrationForm()
 
         return render(request, 'registration/register.html',
-                      {'user_form': user_form})
+                      {'form': user_form})
 
 
 @login_required
@@ -26,4 +26,4 @@ def edit(request):
     else:
         user_form = UserEditForm(instance=request.user)
 
-    return render(request, 'registration/edit.html', {'user_form': user_form})
+    return render(request, 'registration/edit.html', {'form': user_form})

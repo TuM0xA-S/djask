@@ -2,15 +2,13 @@
 
 {% load crispy_forms_tags %}
 
-{% block title %} {%  {% endblock %} 
-
-{% block description %} Create Question {% endblock %}
+{% block description %} {% block title %} {% block prompt %} {% endblock %}  {% endblock %} {% endblock %} 
 
 {% block content %}
-	<p>Fill that form to ask question:</p>
+<p> {% block info %}{% endblock %} </p>
 	<form action="." method="post">
 		{{ form|crispy }}
 		{% csrf_token %}
-		<button type="submit" class="btn btn-primary">Create</button>
+		<button type="submit" class="btn btn-primary">{% block button_text %} {% endblock %}</button>
 	</form>
 {% endblock %}

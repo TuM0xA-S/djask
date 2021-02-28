@@ -1,15 +1,5 @@
-{% extends "base.html" %}
+{% extends "form_base.html" %}
 
-{% load crispy_forms_tags %}
-
-{% block title %} Edit account {% endblock %} 
-
-{% block description %} Edit account {% endblock %}
-
-{% block content %}
-	<form action="." method="post">
-		{{ user_form|crispy }}
-		{% csrf_token %}
-		<button type="submit" class="btn btn-primary">Edit</button>
-	</form>
-{% endblock %}
+{% block prompt %} Edit account {% endblock %}
+{% block info %} Use that form to edit your data:{% endblock %}
+{% block button_text %} Edit{% endblock %}
