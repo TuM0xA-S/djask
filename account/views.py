@@ -13,8 +13,7 @@ def register(request):
     else:
         user_form = UserRegistrationForm()
 
-        return render(request, 'registration/register.html',
-                      {'form': user_form})
+    return render(request, 'registration/register.html', {'form': user_form})
 
 
 @login_required

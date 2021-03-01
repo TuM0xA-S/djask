@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 import datetime
+from taggit.managers import TaggableManager
 
 
 class Question(models.Model):
@@ -11,6 +12,9 @@ class Question(models.Model):
     updated = models.DateTimeField(auto_now=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        ordering = ['-updated']
+
     def __str__(self):
         return self.title
 
@@ -19,6 +23,8 @@ class Question(models.Model):
 
     def was_updated(self):
         return self.updated - self.published >= datetime.timedelta(seconds=5)
+
+    tags = TaggableManager(blank=True)
 
 
 class Answer(models.Model):
@@ -34,3 +40,6 @@ class Answer(models.Model):
     def get_absolute_url(self):
         return reverse('ask:question_detail', args=[self.question.id
                                                     ]) + f'#ans{self.pk}'
+
+    class Meta:
+        ordering = ['-updated']

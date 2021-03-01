@@ -15,5 +15,6 @@
 			<a class="btn btn-danger" href="{% url 'ask:confirm_delete_question' question.pk %}"> Delete </a>
 			{% endif %}
 		</h3>
+		<div>Tags: {{question.tags.all|join:", "}}</div>
 	</div>
 </div>

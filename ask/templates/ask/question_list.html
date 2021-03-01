@@ -2,7 +2,19 @@
 
 {% block title %} Djask {% endblock %}
 
-{% block description %}Question list <a class="btn btn-success" href="{% url 'ask:create_question' %}"> Create </a>{% endblock %}
+{% block description %}
+{% if tag_search %}
+	<a class="btn btn-primary" href="{% url 'ask:question_list' %}"> Full list </a>
+{% else %}
+	<a class="btn btn-primary" href="{% url 'ask:tag_search' %}">Tag search </a>
+{% endif %}
+Question list 
+{% if tag_search %}
+	with tags: {{tags|join:', '}}
+{% else %}
+	<a class="btn btn-success" href="{% url 'ask:create_question' %}"> Create </a>
+{% endif %}
+{% endblock %}
 
 {% block content %}
 	{% for question in question_list %}

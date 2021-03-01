@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect, HttpResponseForbidden
+from django.http import HttpResponseRedirect, HttpResponseForbidden, QueryDict
 from .models import Question, Answer
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.decorators import login_required
-from .forms import QuestionForm, AnswerForm
+from .forms import QuestionForm, AnswerForm, TagSearchForm
 from django.urls import reverse
+from django.db.models import Count
 
 PAGE_SIZE = 5
 
@@ -15,8 +16,21 @@ def question_detail(request, pk):
 
 
 def question_list(request):
-    all_questions = Question.objects.all()
-    paginator = Paginator(all_questions, PAGE_SIZE)
+    questions = Question.objects.all()
+    form = TagSearchForm(request.GET)
+    tag_search = False
+    tags = None
+    if form.is_valid():
+        tag_search = True
+        tags = form.cleaned_data['tags']
+        questions = questions.filter(tags__name__in=tags).annotate(
+            same_tags=Count('tags')).order_by('-same_tags', '-updated')
+
+    paginator = Paginator(questions, PAGE_SIZE)
+    qd = request.GET.copy()
+    if 'page' in qd:
+        del qd['page']
+    qs = qd.urlencode()
     page = request.GET.get('page')
     try:
         question_list = paginator.page(page)
@@ -25,9 +39,27 @@ def question_list(request):
     except EmptyPage:
         question_list = paginator.page(paginator.num_pages)
 
-    return render(request, 'ask/question_list.html', {
-        'question_list': question_list,
-    })
+    return render(
+        request, 'ask/question_list.html', {
+            'question_list': question_list,
+            'tag_search': tag_search,
+            'tags': tags,
+            'query': qs
+        })
+
+
+def tag_search(request):
+    if request.method == 'POST':
+        form = TagSearchForm(request.POST)
+        if form.is_valid():
+            qd = QueryDict(mutable=True)
+            qd['tags'] = request.POST['tags']
+            return HttpResponseRedirect(
+                f"{reverse('ask:question_list')}?{qd.urlencode()}")
+    else:
+        form = TagSearchForm()
+
+    return render(request, 'ask/tag_search.html', {'form': form})
 
 
 @login_required
@@ -38,6 +70,7 @@ def create_question(request):
             question = question_form.save(commit=False)
             question.author = request.user
             question.save()
+            question_form.save_m2m()
             return HttpResponseRedirect(question.get_absolute_url())
     else:
         question_form = QuestionForm()

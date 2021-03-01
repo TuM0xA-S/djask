@@ -4,6 +4,7 @@ from . import views
 app_name = 'ask'
 urlpatterns = [
     path('', views.question_list, name='question_list'),
+    path('tag_search/', views.tag_search, name='tag_search'),
     path('<int:pk>/', views.question_detail, name='question_detail'),
     path('create/', views.create_question, name='create_question'),
     path('<int:pk>/edit/', views.edit_question, name='edit_question'),

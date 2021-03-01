@@ -18,8 +18,4 @@ class QuestionAdmin(admin.ModelAdmin):
     search_field = ('title', 'body')
     inlines = (AnswerInline, )
     raw_id_fields = ('author', )
-    fields = (
-        'author',
-        'title',
-        'body',
-    )
+    fields = ('author', 'title', 'body', 'tags')
