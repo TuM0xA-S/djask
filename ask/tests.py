@@ -137,3 +137,16 @@ class RegisterViewTests(TestCase):
                  password2="LOLlol1234",
                  email="lol@mail.ru"))
         User.objects.get(username="new_user")
+
+
+class TagSearchViewTests(TestCase):
+    def test_tag_searh(self):
+        u1 = User.objects.create_user(username='user1', password='1')
+        q1 = Question.objects.create(title='title1', body='body1', author=u1)
+        q1.tags.add('1')
+        q2 = Question.objects.create(title='title2', body='body2', author=u1)
+        q2.tags.add('2')
+        resp = self.client.post(reverse('ask:tag_search'), {'tags': '1'},
+                                follow=True)
+        self.assertQuerysetEqual(resp.context['question_list'],
+                                 ['<Question: title1>'])

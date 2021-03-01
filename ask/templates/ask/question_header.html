@@ -2,17 +2,17 @@
 	<div class="col card px-2 my-2">
 		<div>
 			<small class="text-muted">
-				by {{question.author}} | at {{ question.published }} 
+				by {{question.author}} | at {{ question.published|date:"n N Y, H:i" }} 
 				{% if question.was_updated %}
-					(upd. {{ question.updated }})
+					(upd. {{ question.updated|date:"n N Y, H:i" }})
 				{% endif %}
 			</small>
 		</div>
 		<h3 class="card-title">
 			<a href="{{ question.get_absolute_url }}">{{ question.title }}</a>
 			{% if request.user.is_authenticated and question.author == request.user %}
-			<a class="btn btn-primary" href="{% url 'ask:edit_question' question.pk %}"> Edit </a>
-			<a class="btn btn-danger" href="{% url 'ask:confirm_delete_question' question.pk %}"> Delete </a>
+			<a class="btn px-1 py-0 btn-primary" href="{% url 'ask:edit_question' question.pk %}"> Edit </a>
+			<a class="btn px-1 py-0 btn-danger" href="{% url 'ask:confirm_delete_question' question.pk %}"> Delete </a>
 			{% endif %}
 		</h3>
 		<div>Tags: {{question.tags.all|join:", "}}</div>

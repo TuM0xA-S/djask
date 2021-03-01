@@ -8,10 +8,13 @@
 {% else %}
 	<a class="btn btn-primary" href="{% url 'ask:tag_search' %}">Tag search </a>
 {% endif %}
+<span class="m-1">
 Question list 
 {% if tag_search %}
 	with tags: {{tags|join:', '}}
+</span>
 {% else %}
+</span>
 	<a class="btn btn-success" href="{% url 'ask:create_question' %}"> Create </a>
 {% endif %}
 {% endblock %}
@@ -19,6 +22,12 @@ Question list
 {% block content %}
 	{% for question in question_list %}
 		{% include "ask/question_header.html" %}
+	{% empty %}
+	<div class="row justify-content-center">
+		<div class="col-auto">
+			<h5 class="text-muted">no questions</h5>
+		</div>
+	</div>
 	{% endfor %}
 	{% include "ask/pagination.html" with page=question_list%}
 {% endblock %}

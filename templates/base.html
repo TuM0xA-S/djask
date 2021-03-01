@@ -15,8 +15,10 @@
 		<div class="row">
 			<nav class="col nav">
 				<a class="nav-link" href="{% url 'ask:question_list' %}">Question list</a>
+				{% if request.user.is_authenticated %}
 				<a class="nav-link" href="{% url 'edit' %}">Edit Account</a>
 				<a class="nav-link" href="{% url 'password_change' %}">Change password</a>
+				{% endif %}
 			</nav>
 			<div class="col mt-2">
 				<div class="float-right">
@@ -29,9 +31,9 @@
 				</div>
 			</div>
 		</div>
-		<div class="row justify-content-center">
-			<div class="col-auto">
-				<h3>{% block description %}{% endblock %}</h3>
+		<div class="row ">
+			<div class="col">
+				<h3 class="d-flex justify-content-center">{% block description %}{% endblock %}</h3>
 			</div>
 		</div>
 	  {% block content %}

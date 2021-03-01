@@ -2,9 +2,9 @@
 	<div class="col card px-2 my-2" id="ans{{answer.pk}}">
 		<div>
 			<small class="text-muted">
-				by {{answer.author}} | at {{ answer.published }} 
+				by {{answer.author}} | at {{ answer.published|date:"n N Y, H:i" }} 
 				{% if answer.was_updated %}
-					(upd. {{ answer.updated }})
+					(upd. {{ answer.updated|date:"n N Y, H:i" }})
 				{% endif %}
 			</small>
 		</div>
@@ -13,8 +13,8 @@
 		</div>
 		<div>
 			{% if request.user.is_authenticated and answer.author == request.user %}
-			<a class="btn btn-primary" href="{% url 'ask:edit_answer' answer.pk %}"> Edit </a>
-			<a class="btn btn-danger" href="{% url 'ask:confirm_delete_answer' answer.pk %}"> Delete </a>
+			<a class="btn px-1 py-0 btn-primary" href="{% url 'ask:edit_answer' answer.pk %}"> Edit </a>
+			<a class="btn px-1 py-0 btn-danger" href="{% url 'ask:confirm_delete_answer' answer.pk %}"> Delete </a>
 			{% endif %}
 		</div>
 	</div>
