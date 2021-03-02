@@ -27,9 +27,9 @@ except ImportError:
         key_file.write(f"SECRET_KEY = '{SECRET_KEY}'")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 LOGIN_REDIRECT_URL = 'ask:question_list'
 LOGIN_URL = 'login'
@@ -87,7 +87,7 @@ DATABASES = {
         'NAME': 'djask',
         'USER': 'root',
         'PASSWORD': 'passW0RD',
-        'HOST': '127.0.0.1',
+        'HOST': 'db',
         'PORT': '3306',
     }
 }
