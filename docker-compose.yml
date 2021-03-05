@@ -11,7 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: passW0RD
       MYSQL_DATABASE: 'djask'
     volumes:
-      - mysql-data:/var/lib/mysql
+      - ~/mysql-data:/var/lib/mysql
 
   web:
     build: .
@@ -20,6 +20,3 @@ services:
       - 8000:8000
     depends_on:
       - db
-
-volumes:
-  mysql-data:
