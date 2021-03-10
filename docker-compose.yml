@@ -23,7 +23,7 @@ services:
     depends_on:
       - db
     environment:
-      PROD: "1"
+      DEV: "1" # remove in production
     volumes:
-      - .:/usr/src/djask
+      - .:/usr/src/djask # remove in production
     command: ["./wait-for-it.sh", "db:3306", "--", "./ep.sh"]
