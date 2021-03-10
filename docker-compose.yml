@@ -10,6 +10,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: passW0RD
       MYSQL_DATABASE: 'djask'
+    cap_add:
+      - SYS_NICE  # CAP_SYS_NICE
     volumes:
       - ~/mysql-data:/var/lib/mysql
 
@@ -20,4 +22,8 @@ services:
       - 8000:8000
     depends_on:
       - db
+    environment:
+      PROD: "1"
+    volumes:
+      - .:/usr/src/djask
     command: ["./wait-for-it.sh", "db:3306", "--", "./ep.sh"]
