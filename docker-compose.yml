@@ -26,4 +26,5 @@ services:
       DEV: "1" # remove in production
     volumes:
       - .:/usr/src/djask # remove in production
+      - ./static:/usr/src/djask/static # run collectstatic in container, after it statics can be served from here
     command: ["./wait-for-it.sh", "db:3306", "--", "./ep.sh"]

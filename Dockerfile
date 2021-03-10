@@ -8,7 +8,6 @@ COPY . .
 
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-RUN python manage.py collectstatic --noinput
 RUN chmod +x ep.sh
 RUN chmod +x wait-for-it.sh
 
